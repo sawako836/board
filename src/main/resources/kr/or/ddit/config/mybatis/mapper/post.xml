@@ -23,7 +23,8 @@
 	                            postdate,
 	                            deletion,
 	                            pnum2,
-	                            posttem
+	                            posttem,
+	                            layer
 		                   from post
 		                  where inum = #{inum}
 		                  start with pnum2 is null
@@ -32,11 +33,10 @@
 		where rn between #{pagesize}*(#{page}-1) + 1 and #{page}*#{pagesize}
 	  </select>
 	
-	  <select id="getPost" parameterType="post" resultType="post" >
+	  <select id="getPost" parameterType="Integer" resultType="post" >
 			select *
 			from post
-			where inum = #{inum}
-			and pnum = #{pnum}
+			where pnum = #{pnum}
 	  </select>
 	   
 	    <!-- 게시글 전체 건수 조회 -->
@@ -47,7 +47,7 @@
 	   
 	   <!-- 게시글 등록 -->
 	   <insert id="insertPost" parameterType="post">
-			insert into post
+			insert into post(pnum, inum, postsubject, postcontent, userid, postdate, deletion, pnum2, posttem)
 			values(pnum.nextval, 
 				   #{inum}, 
 				   #{postsubject}, 

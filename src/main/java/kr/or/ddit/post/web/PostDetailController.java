@@ -41,15 +41,16 @@ public class PostDetailController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int pnum = Integer.parseInt(request.getParameter("pnum"));
-		int inum = Integer.parseInt(request.getParameter("inum"));
 		
 		Post post = new Post();
 		post.setPnum(pnum);
-		post.setInum(inum);
 		
-		Post getPost = postService.getPost(post);
+		Post getPost = postService.getPost(pnum);
+		
+		logger.debug("post = {}", post);
 		
 		request.setAttribute("post", getPost);
+		
 		
 		List<Attachment> attachmentList = attachmentService.getAttachmentList(pnum);
 		

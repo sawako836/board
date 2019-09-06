@@ -29,7 +29,7 @@ public interface IPostService {
 	* @return
 	* Method 설명 : 게시글 조회
 	 */
-	public Post getPost(Post post);
+	public Post getPost(int pnum);
 	
 	/**
 	 * 

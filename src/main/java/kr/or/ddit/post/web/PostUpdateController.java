@@ -40,13 +40,11 @@ public class PostUpdateController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int pnum = Integer.parseInt(request.getParameter("pnum"));
-		int inum = Integer.parseInt(request.getParameter("inum"));
 		
 		Post post = new Post();
 		post.setPnum(pnum);
-		post.setInum(inum);
 		
-		Post getPost = postService.getPost(post);
+		Post getPost = postService.getPost(pnum);
 		
 		request.setAttribute("post", getPost);
 		

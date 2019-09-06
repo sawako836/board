@@ -54,7 +54,7 @@ public interface IPostDao {
 	* @return
 	* Method 설명 : 게시글 조회
 	 */
-	public Post getPost(SqlSession sqlSession, Post post);
+	public Post getPost(SqlSession sqlSession, int pnum);
 	
 	/**
 	 * 

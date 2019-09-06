@@ -34,8 +34,8 @@ public class PostDao implements IPostDao {
 	}
 
 	@Override
-	public Post getPost(SqlSession sqlSession, Post post) {
-		return sqlSession.selectOne("post.getPost", post);
+	public Post getPost(SqlSession sqlSession, int pnum) {
+		return sqlSession.selectOne("post.getPost", pnum);
 	}
 
 	@Override
