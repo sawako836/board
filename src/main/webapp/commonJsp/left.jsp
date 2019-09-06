@@ -12,7 +12,7 @@
 	// 임시로 ajax
 	$(function(){
 		$.ajax({
-			url : "/boardList",
+			url : "${cp}/boardList",
 			dataType : 'json',
 			success : function(datas){
 				var code = "";

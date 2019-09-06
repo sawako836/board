@@ -1,6 +1,9 @@
 package kr.or.ddit.login.web;
 
 import java.io.IOException;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -18,7 +21,7 @@ import kr.or.ddit.user.repository.UserDao;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.user.service.UserService;
 
-@WebServlet("/login")
+@WebServlet(urlPatterns = "/login", loadOnStartup = 1)
 public class LoginBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -27,8 +30,10 @@ public class LoginBoardController extends HttpServlet {
 	private IUserService userService; // IUserService
 	
 	@Override
-	public void init() throws ServletException {
+	public void init(ServletConfig config) throws ServletException {
 		userService = new UserService();
+		ServletContext context = config.getServletContext();
+		context.setAttribute("cp", context.getContextPath());
 	}
 
 	/**
