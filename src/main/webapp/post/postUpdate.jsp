@@ -16,7 +16,7 @@
 <title>Jsp-Main-basicLib</title>
 
 <%@include file="/commonJsp/basicLib.jsp" %>
-<script src="/SE2/js/HuskyEZCreator.js"></script>
+<script src="${cp }/SE2/js/HuskyEZCreator.js"></script>
 <script>
 	var fileSizeCheck = true;
 
@@ -27,7 +27,7 @@
 		nhn.husky.EZCreator.createInIFrame({
 			oAppRef : oEditors,
 			elPlaceHolder : "smarteditor", 
-			sSkinURI : "/SE2/SmartEditor2Skin.html",
+			sSkinURI : "${cp }/SE2/SmartEditor2Skin.html",
 			fCreator : "createSEditor2", 
 			htParams : {
 				
