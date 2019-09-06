@@ -16,7 +16,7 @@
 <title>Jsp-Main-basicLib</title>
 
 <%@include file="/commonJsp/basicLib.jsp" %>
-<script src="/SE2/js/HuskyEZCreator.js"></script>
+<script src="${cp }/SE2/js/HuskyEZCreator.js"></script>
 <script>
 	var fileSizeCheck = true;
 	
