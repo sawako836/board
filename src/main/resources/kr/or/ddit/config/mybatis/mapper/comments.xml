@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comments">
+	<select id="getCommentsList" parameterType="Integer" resultType="comments">
+		select *
+		from comments
+		where pnum = #{pnum}
+		order by 1
+	</select>
+	
+	<insert id="insertComments" parameterType="comments">
+		insert into comments
+		values(cnum.nextval, #{cmtcont}, sysdate, #{pnum, jdbcType=VARCHAR}, #{userid}, 'y')
+	</insert>
+	<update id="deleteComments" parameterType="Integer">
+		update comments
+		set cmtdeletion = 'n'
+		where cnum = #{cnum}
+	</update>
+</mapper>

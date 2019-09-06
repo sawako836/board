@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="post">
+	  <!-- 게시글 리스트 조회 -->
+	  <select id="getPostList" resultType="post">
+			select *
+			from post
+	  </select>
+	  
+	  <!-- 게시글 페이징 리스트 -->
+	  <select id="getPostPagingList" resultType="post" parameterType="Map">
+	      select a.*
+		    from
+		        (select rownum rn, a.*
+		           from
+		                (select pnum,
+		                		inum, 
+		                        postsubject,
+	                            postcontent,
+	                            userid,
+	                            postdate,
+	                            deletion,
+	                            pnum2,
+	                            posttem
+		                   from post
+		                  where inum = #{inum}
+		                  start with pnum2 is null
+		                connect by prior pnum = pnum2
+		                  order siblings by pnum desc) a) a
+		where rn between #{pagesize}*(#{page}-1) + 1 and #{page}*#{pagesize}
+	  </select>
+	
+	  <select id="getPost" parameterType="post" resultType="post" >
+			select *
+			from post
+			where inum = #{inum}
+			and pnum = #{pnum}
+	  </select>
+	   
+	    <!-- 게시글 전체 건수 조회 -->
+	   <select id="getPostTotalCnt" resultType="Integer">
+	   		select count(*)
+	  		  from post
+	   </select>
+	   
+	   <!-- 게시글 등록 -->
+	   <insert id="insertPost" parameterType="post">
+			insert into post
+			values(pnum.nextval, 
+				   #{inum}, 
+				   #{postsubject}, 
+				   #{postcontent}, 
+				   #{userid},
+				   sysdate, 
+				   'y',
+			  case when #{pnum2, jdbcType=INTEGER}=0 
+			  then null else #{pnum2} end,
+			  case when #{posttem, jdbcType=INTEGER} = 0 
+			  then pnum.currval else #{posttem} end)
+			
+		<selectKey resultType="Integer" keyProperty="pnum">
+			  select pnum.currval from dual
+		</selectKey>
+	
+		</insert>
+	   
+	   <!-- 게시글 삭제 -->
+	  <update id="deletePost" parameterType="Integer">
+			update post
+			set deletion = 'n'
+			where pnum = #{pnum}
+	  </update>
+	   
+	   <!-- 게시글 수정 -->
+	  <update id="updatePost" parameterType="post">
+		 update post
+			set postsubject = #{postsubject},
+				postcontent = #{postcontent}
+		  where pnum = #{pnum}
+	  </update>	
+  </mapper>

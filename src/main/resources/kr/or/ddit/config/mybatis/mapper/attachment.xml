@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="attachment">
+	<!-- 댓글 리스트 조회 -->
+	<select id="getAttachmentList" parameterType="Integer" resultType="attachment">
+		select *
+		from attachment
+		where pnum = ${pnum}
+	</select>
+	
+	<!-- 첨부파일 추가 -->
+	<insert id="insertAttachment" parameterType="attachment">
+		insert into attachment
+		values(attachment_seq.nextval, #{uploadname}, #{filepath}, #{pnum})
+	</insert>
+	
+	<!-- 첨부파일 조회 -->
+	<select id="getAttachment" parameterType="Integer" resultType="attachment">
+		select *
+		from attachment
+		where anum = #{anum}
+	</select>
+	
+	<!-- 첨부파일 삭제 -->
+	<delete id="deleteAttachment" parameterType="Integer">
+		delete attachment
+		where anum = #{anum}
+	</delete>
+	
+</mapper>
